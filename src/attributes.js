@@ -365,8 +365,10 @@ jQuery.extend({
 				if ( name ) {
 					propName = jQuery.propFix[ name ] || name;
 
-					// See #9699 for explanation of this approach (setting first, then removal)
-					jQuery.attr( elem, name, "" );
+					if ( name === "style" ) {
+						// See #9699 for explanation of this approach (setting first, then removal)
+						jQuery.attr( elem, name, "" );
+					}
 					elem.removeAttribute( getSetAttribute ? name : propName );
 
 					// Set corresponding property to false for boolean attributes
