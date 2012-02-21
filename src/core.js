@@ -19,12 +19,15 @@ var
 
 		// The jQuery object is actually just the init constructor 'enhanced'
 		// Need init if jQuery is called (just allow error to be thrown if not included)
-		return new jQuery.fn.init( selector, context );
+		return new jQuery.fn.init( selector, context || defaultContext );
 	},
+
+	defaultContext,
 
 	// Support: Android<4.1
 	// Make sure we trim BOM and NBSP
 	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
+
 
 	// Matches dashed string for camelizing
 	rmsPrefix = /^-ms-/,
@@ -449,7 +452,11 @@ jQuery.extend( {
 
 	// jQuery.support is not used in Core but other projects attach their
 	// properties to it so it needs to exist.
-	support: support
+	support: support,
+
+	setDefaultContext: function( DOM ) {
+		defaultContext = ( DOM ? jQuery( DOM ) : undefined );
+	}
 } );
 
 // JSHint would error on this code due to the Symbol not being defined in ES5.
@@ -461,6 +468,7 @@ if ( typeof Symbol === "function" ) {
 	jQuery.fn[ Symbol.iterator ] = arr[ Symbol.iterator ];
 }
 /* jshint ignore: end */
+
 
 // Populate the class2type map
 jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
