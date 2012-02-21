@@ -3,7 +3,7 @@ var jQuery = (function() {
 // Define a local copy of jQuery
 var jQuery = function( selector, context ) {
 		// The jQuery object is actually just the init constructor 'enhanced'
-		return new jQuery.fn.init( selector, context, rootjQuery );
+		return new jQuery.fn.init( selector, context || defaultContext, rootjQuery );
 	},
 
 	// Map over jQuery in case of overwrite
@@ -14,6 +14,8 @@ var jQuery = function( selector, context ) {
 
 	// A central reference to the root jQuery(document)
 	rootjQuery,
+
+	defaultContext,
 
 	// A simple way to check for HTML strings or ID strings
 	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
@@ -865,6 +867,10 @@ jQuery.extend({
 		jQuerySub.fn.init.prototype = jQuerySub.fn;
 		var rootjQuerySub = jQuerySub(document);
 		return jQuerySub;
+	},
+
+	setDefaultContext: function(DOM) {
+		defaultContext = ( DOM ? jQuery(DOM) : undefined );
 	},
 
 	browser: {}
