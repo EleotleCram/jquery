@@ -451,8 +451,12 @@ jQuery.event = {
 					event.data = handleObj.data;
 					event.handleObj = handleObj;
 
-					ret = ( (jQuery.event.special[ handleObj.origType ] || {}).handle || handleObj.handler )
-							.apply( matched.elem, args );
+					try {
+						ret = ( (jQuery.event.special[ handleObj.origType ] || {}).handle || handleObj.handler )
+								.apply( matched.elem, args );
+					} catch(e) {
+						console.log("A handler crashed during dispatch: ", e);
+					}
 
 					if ( ret !== undefined ) {
 						event.result = ret;
