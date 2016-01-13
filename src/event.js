@@ -199,7 +199,7 @@ jQuery.event = {
 				handlers.splice( handlers.delegateCount++, 0, handleObj );
 			} else {
 				if ( !handlers.push ) {
-					console.log("Object has no method 'push'",elem, types, events, handlers);
+					console.log( "Object has no method 'push'", elem, types, events, handlers );
 				}
 				handlers.push( handleObj );
 			}
